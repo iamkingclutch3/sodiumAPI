@@ -12,7 +12,7 @@ console.log("Creating for " + req.query.url)
 if(isValidHttp(req.query.url) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
 if(await hss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
 
-res.status(200).json({ "data": await ss(req.query.url, res)})
+res.status(200).json({ "data": await hss(req.query.url, res)})
 console.log("Created")
 })
 
@@ -64,7 +64,7 @@ const hss = async (req, res) => {
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
-    const img = await page.screenshot({ defaultViewport: {width: 1920, height: 1080}, type: "png" })
+    const img = await page.screenshot({ defaultViewport: { width: 1920, height: 1080 }, type: "png" })
     await browser.close()
     return img.toString('base64')
   }catch(error){

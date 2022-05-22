@@ -15,3 +15,7 @@ app.listen(process.env.PORT || 5000, () => {
 })
 
 module.export = app
+
+process.on('uncaughtException', function (exception) {
+  console.log(exception)
+   });

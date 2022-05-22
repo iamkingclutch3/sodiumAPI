@@ -17,7 +17,7 @@ console.log("Created")
 })
 
 router.get("/getfimg", async(req, res) => {
-  console.log("Creating for " + req.query.url)
+  console.log("Creating full for " + req.query.url)
   if(isValidHttp(req.query.url) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
   if(await ss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
   

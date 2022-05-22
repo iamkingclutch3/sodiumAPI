@@ -32,16 +32,18 @@ const ss = async (req, res) => {
     const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
     const page = await browser.newPage()
   
-    try{
+    /*try{
       await page.goto(req, { waitUntil: 'load', timeout: 10000 })
     }catch(error){
       console.log(error)
       await browser.close()
       return false
-    }
+    }*/
 
-    await page.goto(req, { waitUntil: "networkidle0" })
-    const img = await page.screenshot({ fullPage: true, type: "png" })
+    await page.goto(req, { waitUntil: "networkidle0", timeout: 60000 })
+
+
+    const img = await page.screenshot({ defaultViewport: { width: 1920, height: 1080 }, fullPage: true, type: "png" })
     await browser.close()
     return img.toString('base64')
   }catch(error){

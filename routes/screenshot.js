@@ -1,9 +1,7 @@
 const router = require("express").Router()
 const puppeteer = require("puppeteer")
 const path = require('path');
-
-const filepath = path.resolve(__dirname, '../images/example.png');
-
+const fs = require('fs')
 
 router.get("/", async(req, res) => {
   res.json({ message: 'Hello World'})
@@ -12,11 +10,20 @@ router.get("/", async(req, res) => {
 router.get("/getimg", async(req, res) => {
 console.log("Creating for " + req.query.url)
 if(isValidHttp(req.query.url) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
-if(await ss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
-await ss(req.query.url, res)
-res.status(200).sendFile(filepath)
+if(await hss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
+
+res.status(200).json({ "data": await ss(req.query.url, res)})
 console.log("Created")
 })
+
+router.get("/getfimg", async(req, res) => {
+  console.log("Creating for " + req.query.url)
+  if(isValidHttp(req.query.url) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
+  if(await ss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
+  
+  res.status(200).json({ "data": await ss(req.query.url, res)})
+  console.log("Created")
+  })
 
 module.exports = router;
 
@@ -33,8 +40,28 @@ const ss = async (req, res) => {
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
-    await page.screenshot({ path: './images/example.png', fullPage: true })
-    return
+    const img = await page.screenshot({ fullPage: true, type: "png" })
+    return img.toString('base64')
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const hss = async (req, res) => {
+  try{
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+    const page = await browser.newPage()
+  
+    try{
+      await page.goto(req, { waitUntil: 'load', timeout: 10000 })
+    }catch(error){
+      console.log(error)
+      return false
+    }
+
+    await page.goto(req, { waitUntil: "networkidle0" })
+    const img = await page.screenshot({ type: "png" })
+    return img.toString('base64')
   }catch(error){
     console.log(error)
   }

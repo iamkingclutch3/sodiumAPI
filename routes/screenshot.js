@@ -22,7 +22,7 @@ module.exports = router;
 
 const ss = async (req, res) => {
   try{
-    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
     const page = await browser.newPage()
   
     try{

@@ -64,7 +64,7 @@ const hss = async (req, res) => {
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
-    const img = await page.screenshot({ fullPage: false, type: "png" })
+    const img = await page.screenshot({ defaultViewport: {width: 1920, height: 1080}, type: "png" })
     await browser.close()
     return img.toString('base64')
   }catch(error){

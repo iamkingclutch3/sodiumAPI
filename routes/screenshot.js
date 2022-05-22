@@ -19,7 +19,7 @@ await ss(req, res)
 module.exports = router;
 
 const ss = async (req, res) => {
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
   const page = await browser.newPage()
 
   await page.goto("https://bans.guildcraft.net/", {"waitUntil" : "networkidle0"})

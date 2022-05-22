@@ -8,7 +8,7 @@ router.get("/", async(req, res) => {
 })
 
 router.get("/getimg", async(req, res) => {
-console.log("Creating for " + req.query.url)
+console.log("Creating half for " + req.query.url)
 if(isValidHttp(req.query.url) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
 if(await hss(req.query.url, res) === false) return res.status(400).json({ error: "Not a valid hostname or ip" })
 

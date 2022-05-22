@@ -36,13 +36,16 @@ const ss = async (req, res) => {
       await page.goto(req, { waitUntil: 'load', timeout: 10000 })
     }catch(error){
       console.log(error)
+      await browser.close()
       return false
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
     const img = await page.screenshot({ fullPage: true, type: "png" })
+    await browser.close()
     return img.toString('base64')
   }catch(error){
+    await browser.close()
     console.log(error)
   }
 }
@@ -56,13 +59,16 @@ const hss = async (req, res) => {
       await page.goto(req, { waitUntil: 'load', timeout: 10000 })
     }catch(error){
       console.log(error)
+      await browser.close()
       return false
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
     const img = await page.screenshot({ fullPage: false, type: "png" })
+    await browser.close()
     return img.toString('base64')
   }catch(error){
+    await browser.close()
     console.log(error)
   }
 }

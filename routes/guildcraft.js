@@ -29,6 +29,7 @@ router.get("/bminfo", async(req, res) => {
         })
         if(index === 19 || index === $("#app > main > div > div:nth-child(4) > div > table > tbody > tr").size){
             res.status(200).send(array)
+            array = []
         }
     });
     //console.log(await main(req.query.username))

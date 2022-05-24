@@ -27,7 +27,7 @@ router.get("/bminfo", async(req, res) => {
           UModerator: $(`#app > main > div > div:nth-child(4) > div > table > tbody > tr:nth-child(${index + 1}) > td:nth-child(7)`).text().replaceAll(/\s+/g, " "),
           Server: $(`#app > main > div > div:nth-child(4) > div > table > tbody > tr:nth-child(${index + 1}) > td:nth-child(8)`).text().replaceAll(/\s+/g, " ")
         })
-        if(index === 19 || index === $("#app > main > div > div:nth-child(4) > div > table > tbody > tr").length){
+        if(index === 19 || index === $("#app > main > div > div:nth-child(4) > div > table > tbody > tr").length - 1){
             res.status(200).send(array)
             array = []
         }

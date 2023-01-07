@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(process.env.PORT || 5000, () => {
-  console.log(`Online listening https://puppeteer-in-repl.iamkingclutch.repl.co`)
+  console.log(`Online listening https://sodium-api.onrender.com`)
 })
 
 module.export = app

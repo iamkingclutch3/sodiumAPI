@@ -21,3 +21,10 @@ module.export = app
 process.on('uncaughtException', function (exception) {
   console.log(exception)
    });
+
+//Keep alive cron job
+const cron = require('cron');
+
+const job = new cron.CronJob('0 */3 * * * *', function() {
+  console.log('Keeping alive...');
+}, null, true, 'Europe/Madrid');

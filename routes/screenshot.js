@@ -42,6 +42,11 @@ const ss = async (req, res) => {
 
     await page.goto(req, { waitUntil: "networkidle0", timeout: 60000 })
 
+    await page.setViewport({
+      width: 1920,
+      height: 1080,
+      deviceScaleFactor: 1
+    });
 
     const img = await page.screenshot({ defaultViewport: { width: 1920, height: 1080 }, fullPage: true, type: "png" })
     await browser.close()
@@ -66,6 +71,13 @@ const hss = async (req, res) => {
     }
 
     await page.goto(req, { waitUntil: "networkidle0" })
+
+    await page.setViewport({
+      width: 1920,
+      height: 1080,
+      deviceScaleFactor: 1
+    });
+
     const img = await page.screenshot({ defaultViewport: { width: 1920, height: 1080 }, type: "png" })
     await browser.close()
     return img.toString('base64')
